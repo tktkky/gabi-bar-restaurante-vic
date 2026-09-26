@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { Language } from "../menu-data";
+import { featuredMenuPhotos } from "../menu-images";
 
 const phone = "603269541";
 const whatsapp = "https://wa.me/34603269541?text=Hola%2C%20quiero%20hacer%20una%20reserva%20en%20Gabi%20Bar%20Restaurante%20Vic.";
@@ -16,9 +17,9 @@ const copy = {
 } as const;
 
 const plates = [
-  { icon: "🍟", title: "Salchiford", price: "10 / 15 / 20 €", text: { es: "Patatas, chicharrón, carne desmechada, queso y maicitos.", ca: "Patates, cotna cruixent, carn esfilagarsada, formatge i blat de moro.", en: "Fries, crispy pork, shredded beef, cheese and corn." } },
-  { icon: "🍖", title: "Picada", price: "20 / 30 €", text: { es: "Una mezcla generosa de carnes, patacón, yuca y arepa.", ca: "Una barreja generosa de carns, patacó, iuca i arepa.", en: "A generous mix of meats, patacón, yuca and arepa." } },
-  { icon: "🫓", title: "Antojitos", price: "Desde 2 €", text: { es: "Empanadas, arepas y bocados colombianos para compartir.", ca: "Empanades, arepes i mossegades colombianes per compartir.", en: "Empanadas, arepas and Colombian bites made for sharing." } },
+  { image: featuredMenuPhotos.salchiford, title: "Salchiford", price: "10 / 15 / 20 €", text: { es: "Patatas, chicharrón, carne desmechada, queso y maicitos.", ca: "Patates, cotna cruixent, carn esfilagarsada, formatge i blat de moro.", en: "Fries, crispy pork, shredded beef, cheese and corn." } },
+  { image: featuredMenuPhotos.picada, title: "Picada", price: "20 / 30 €", text: { es: "Una mezcla generosa de carnes, patacón, yuca y arepa.", ca: "Una barreja generosa de carns, patacó, iuca i arepa.", en: "A generous mix of meats, patacón, yuca and arepa." } },
+  { image: featuredMenuPhotos.antojitos, title: "Antojitos", price: "Desde 2 €", text: { es: "Empanadas, arepas y bocados colombianos para compartir.", ca: "Empanades, arepes i mossegades colombianes per compartir.", en: "Empanadas, arepas and Colombian bites made for sharing." } },
 ];
 
 export default function AlternativeHome() {
@@ -52,7 +53,7 @@ export default function AlternativeHome() {
 
     <section className="alt-feature"><div className="alt-feature-photo alt-reveal"><span>✳</span></div><div className="alt-feature-copy alt-reveal"><span className="alt-section-count">02 / GABI BAR</span><h2>{t.feature}</h2><p>{t.featureText}</p><div className="alt-tricolor"><i/><i/><i/></div></div></section>
 
-    <section className="alt-food" id="sabores"><div className="alt-food-heading alt-reveal"><div><span className="alt-section-count">03 / GABI BAR</span><h2>{t.foodTitle}</h2></div><p>{t.foodText}</p></div><div className="alt-plate-grid">{plates.map((plate, index) => <article className={`alt-plate alt-reveal alt-plate-${index + 1}`} key={plate.title}><div className="alt-plate-art"><span>{plate.icon}</span><i>✦</i></div><div className="alt-plate-copy"><div><h3>{plate.title}</h3><strong>{plate.price}</strong></div><p>{plate.text[language]}</p></div></article>)}</div><a className="alt-red-button alt-menu-button" href="/carta">{t.menu}<span>↗</span></a></section>
+    <section className="alt-food" id="sabores"><div className="alt-food-heading alt-reveal"><div><span className="alt-section-count">03 / GABI BAR</span><h2>{t.foodTitle}</h2></div><p>{t.foodText}</p></div><div className="alt-plate-grid">{plates.map((plate, index) => <article className={`alt-plate alt-reveal alt-plate-${index + 1}`} key={plate.title}><div className="alt-plate-art"><img src={plate.image} alt="" loading="lazy"/><i>✦</i></div><div className="alt-plate-copy"><div><h3>{plate.title}</h3><strong>{plate.price}</strong></div><p>{plate.text[language]}</p></div></article>)}</div><a className="alt-red-button alt-menu-button" href="/carta">{t.menu}<span>↗</span></a></section>
 
     <section className="alt-location" id="visitanos"><div className="alt-location-photo"/><div className="alt-location-card alt-reveal"><span className="alt-section-count">04 / VIC, CATALUNYA</span><p className="alt-overline">{t.placeEyebrow}</p><h2>{t.addressTitle}</h2><p className="alt-address">{t.address}</p><a className="alt-red-button" href="https://maps.google.com/?q=Carrer+Nou+7+08500+Vic+Barcelona" target="_blank" rel="noreferrer">{t.directions}<span>↗</span></a><hr/><span className="alt-section-count">{t.phoneLabel}</span><a className="alt-phone" href={`tel:${phone}`}>603 269 541</a></div></section>
 

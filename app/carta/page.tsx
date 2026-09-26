@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { menu, type Language } from "../menu-data";
+import { menuPhoto } from "../menu-images";
 
 const phone = "603269541";
 const whatsapp = "https://wa.me/34603269541?text=Hola%2C%20quiero%20hacer%20una%20reserva%20en%20Gabi%20Bar%20Restaurante%20Vic.";
@@ -11,22 +12,6 @@ const labels = {
   ca: { menu: "La carta", intro: "Sabors colombians per gaudir al teu ritme.", note: "Preus en euros · Consulta els al·lèrgens", home: "Inici", about: "La nostra casa", contact: "Troba'ns", reserve: "Reservar taula", call: "Trucar", share: "Plats amb gust de casa, perfectes per compartir.", footer: "Ja et ve de gust alguna cosa?", category: ["Menjar ràpid", "Picades", "Mossegades colombianes", "Begudes", "Cerveses", "Còctels"] },
   en: { menu: "The menu", intro: "Colombian flavours, made to enjoy at your own pace.", note: "Prices in euros · Ask us about allergens", home: "Home", about: "Our place", contact: "Find us", reserve: "Book a table", call: "Call", share: "Comforting Colombian plates, made for sharing.", footer: "Craving something?", category: ["Quick bites", "Sharing platters", "Colombian favourites", "Drinks", "Beer", "Cocktails"] },
 } as const;
-
-const foodIcon = (groupId: string, name: string) => {
-  const dish = name.toLowerCase();
-  if (groupId === "bebidas") return dish.includes("jugo") || dish.includes("zumo") ? "🥭" : "🥤";
-  if (groupId === "cervezas") return "🍺";
-  if (groupId === "cocteles") return "🍹";
-  if (dish.includes("hamburguesa")) return "🍔";
-  if (dish.includes("costilla") || dish.includes("chicharrón") || dish.includes("picada")) return "🍖";
-  if (dish.includes("arepa") || dish.includes("patacón")) return "🫓";
-  if (dish.includes("maduro") || dish.includes("marranita") || dish.includes("aborrajado")) return "🍌";
-  if (dish.includes("empanada")) return "🥟";
-  if (dish.includes("papa")) return "🥔";
-  if (dish.includes("bofe")) return "🍢";
-  if (dish.includes("chorizo")) return "🌭";
-  return "🍟";
-};
 
 const translatedTag = (tag: string, language: Language) => {
   if (tag === "Incluye bebida") return { es: "Incluye bebida", ca: "Inclou beguda", en: "Drink included" }[language];
@@ -76,7 +61,7 @@ export default function MenuPage() {
 
     <section className="menu-page-intro">
       <div className="menu-intro-glow" aria-hidden="true"/><div className="menu-intro-copy"><p className="eyebrow"><span className="flag-dots"><i/><i/><i/></span> GABI BAR RESTAURANTE VIC</p><h1>{t.menu}<span>.</span></h1><p>{t.intro}</p></div>
-      <div className="menu-intro-art" aria-hidden="true"><span className="menu-art-ring">✳</span><span className="menu-art-emoji">🫓</span><span className="menu-art-spark">✦</span><span className="menu-art-ribbon">SABOR<br/>COLOMBIANO</span></div>
+      <div className="menu-intro-art" aria-hidden="true"><span className="menu-art-ring">✳</span><img className="menu-art-photo" src={menuPhoto("antojitos", "Arepa rellena")} alt=""/><span className="menu-art-spark">✦</span><span className="menu-art-ribbon">SABOR<br/>COLOMBIANO</span></div>
       <a className="menu-phone-chip" href={`tel:${phone}`}>☎ &nbsp;603 269 541</a>
     </section>
 
@@ -87,7 +72,7 @@ export default function MenuPage() {
         <div className="menu-content">{menu.map((group, index) => <section id={group.id} className="menu-group" key={group.id}>
           <div className="group-heading"><div><span className="group-index">0{index + 1} <i>/</i> 0{menu.length}</span><h3>{t.category[index]}</h3></div><span className="group-icon">{group.icon}</span></div>
           <div className={`dish-grid ${group.items.length < 3 ? "compact-grid" : ""}`}>{group.items.map((item, itemIndex) => <article className="dish-card menu-dish-card" key={item.name} style={{ "--delay": `${(itemIndex % 4) * 70}ms` } as React.CSSProperties}>
-            <div className={`dish-art art-${(index + itemIndex) % 5}`} aria-hidden="true"><span className="food-illustration">{foodIcon(group.id, item.name)}</span><i className="food-spark">✦</i></div>
+            <div className={`dish-art art-${(index + itemIndex) % 5}`} aria-hidden="true"><img className="food-photo" src={menuPhoto(group.id, item.name)} alt="" loading="lazy"/><i className="food-spark">✦</i></div>
             <div className="dish-info">{item.tag && <span className="dish-tag">{translatedTag(item.tag, language)}</span>}<div className="dish-heading"><h4>{item.name}</h4><span className="dish-price">{item.price}</span></div><p>{item[language]}</p></div>
           </article>)}</div>
         </section>)}</div>
